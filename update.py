@@ -23,6 +23,7 @@ LANG_DIR_VALID.mkdir(exist_ok=True)
 
 # 语言列表
 lang_list = [
+    "en_us",
     "zh_cn",
     "zh_hk",
     "zh_tw",
@@ -112,7 +113,7 @@ print("正在删除client.jar……\n")
 client_path.unlink()
 
 # 获取语言文件
-language_files_list = [f"{_}.json" for _ in lang_list]
+language_files_list = [f"{_}.json" for _ in lang_list if _ != "en_us"]
 
 for lang in language_files_list:
     lang_asset = asset_index.get(f"minecraft/lang/{lang}")
@@ -196,3 +197,4 @@ for lang_name in lang_list:
     edited_data: Dict[str, str] = {k: v for k, v in data.items() if is_valid_key(k)}
     with open(LANG_DIR_VALID / f"{lang_name}.json", "w", encoding="utf-8") as l:
         json.dump(edited_data, l, ensure_ascii=False, indent=4)
+    print(f"已提取“{lang_name}.json”的有效字符串。")
