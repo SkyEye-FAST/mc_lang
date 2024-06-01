@@ -45,7 +45,7 @@ def get_response(url: str):
         sys.exit()
 
 
-def get_file(url: str, file_name: str, file_path: str, sha1: str):
+def get_file(url: str, file_name: str, file_path: Path, sha1: str):
     """下载文件"""
     for _ in range(3):
         with open(file_path, "wb") as f:
@@ -55,15 +55,13 @@ def get_file(url: str, file_name: str, file_path: str, sha1: str):
             size = f"{round(size_in_bytes / 1048576, 2)} MB"
         else:
             size = f"{round(size_in_bytes / 1024, 2)} KB"
-        with open(file_path, "rb") as f:
+        with file_path.open("rb") as f:
             if hashlib.file_digest(f, "sha1").hexdigest() == sha1:
                 print(f"文件SHA1校验一致。文件大小：{size_in_bytes} B（{size}）\n")
                 break
             print("文件SHA1校验不一致，重新尝试下载。\n")
     else:
         print(f"无法下载文件“{file_name}”。\n")
-
-
 
 
 # 获取version_manifest_v2.json
@@ -83,7 +81,7 @@ V = version_manifest_json["latest"]["snapshot"]
 
 # 获取client.json
 client_manifest_url = next(
-    (i["url"] for i in version_manifest_json["versions"] if i["id"] == V), None
+    (i["url"] for i in version_manifest_json["versions"] if i["id"] == V), ""
 )
 
 print(f"正在获取客户端索引文件“{client_manifest_url.rsplit('/', 1)[-1]}”的内容……")
