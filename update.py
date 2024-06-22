@@ -12,6 +12,7 @@ from zipfile import ZipFile
 
 import requests as r
 from requests.exceptions import SSLError, ReadTimeout, RequestException
+from rich.progress import Progress, BarColumn, TimeRemainingColumn, TextColumn
 
 # 当前绝对路径
 P = Path(__file__).resolve().parent
@@ -37,24 +38,88 @@ LANG_LIST: Tuple[str, ...] = (
 MAX_RETRIES = 3  # 最大重试次数
 
 
-def get_response(url: str) -> r.Response:
+def get_response(url: str) -> r.Response | None:
     """
-    获取HTTP响应。
+    获取HTTP响应，并处理异常和重试逻辑。
 
     Args:
         url (str): 请求的URL
 
     Returns:
-        r.Response: 响应对象
+        r.Response: 响应对象，如果无法获取响应则返回None
     """
 
-    try:
-        resp = r.get(url, timeout=60)
-        resp.raise_for_status()
-        return resp
-    except r.exceptions.RequestException as ex:
-        print(f"请求发生错误: {ex}")
+    retries = 0
+    while retries < MAX_RETRIES:
+        try:
+            resp = r.get(url, timeout=60)
+            resp.raise_for_status()
+            return resp
+        except SSLError as e:
+            print(f"遇到SSL错误：{e}")
+            if retries < MAX_RETRIES - 1:
+                print("服务器限制获取，将在15秒后尝试再次获取……")
+                time.sleep(15)
+            else:
+                print("达到最大重试次数，终止操作。")
+                return None
+        except ReadTimeout as e:
+            print(f"获取超时：{e}")
+            if retries < MAX_RETRIES - 1:
+                print("将在5秒后尝试再次获取……")
+                time.sleep(5)
+            else:
+                print("达到最大重试次数，终止操作。")
+                return None
+        except RequestException as ex:
+            print(f"请求发生错误: {ex}")
+            return None
+        finally:
+            retries += 1
+
+    return None
+
+
+def download_file(url: str, file_path: Path) -> None:
+    """
+    下载文件。
+
+    Args:
+        url (str): 文件下载URL
+        file_path (Path): 文件保存路径
+    """
+    resp = get_response(url)
+    if resp:
+        total = int(resp.headers.get("content-length", 0))
+        with open(file_path, "wb") as f, Progress(
+            TextColumn("[bold blue]{task.fields[filename]}", justify="right"),
+            BarColumn(),
+            TextColumn("[progress.percentage]{task.percentage:>3.1f}%"),
+            TimeRemainingColumn(compact=True),
+        ) as progress:
+            task = progress.add_task("download", filename=file_path.name, total=total)
+            for chunk in resp.iter_content(1024):
+                f.write(chunk)
+                progress.update(task, advance=len(chunk))
+    else:
+        print("未成功获取响应。")
         sys.exit()
+
+
+def check_sha1(file_path: Path, sha1: str) -> bool:
+    """
+    校验文件的SHA1值。
+
+    Args:
+        file_path (Path): 文件路径
+        sha1 (str): 文件的SHA1校验值
+
+    Returns:
+        bool: 校验是否通过
+    """
+
+    with file_path.open("rb") as f:
+        return hashlib.file_digest(f, "sha1").hexdigest() == sha1
 
 
 def get_file(url: str, file_name: str, file_path: Path, sha1: str) -> None:
@@ -68,63 +133,33 @@ def get_file(url: str, file_name: str, file_path: Path, sha1: str) -> None:
         sha1 (str): 文件的SHA1校验值
     """
 
-    def download_file():
-        with open(file_path, "wb") as f:
-            f.write(get_response(url).content)
-
-    def check_sha1():
-        with file_path.open("rb") as f:
-            return hashlib.file_digest(f, "sha1").hexdigest() == sha1
-
-    def get_size_in_bytes():
-        return file_path.stat().st_size
-
-    retries = 0
     start_time = time.time()
     success = False
 
-    while retries < MAX_RETRIES:
+    for _ in range(MAX_RETRIES):
         try:
-            download_file()
-            size_in_bytes = get_size_in_bytes()
+            download_file(url, file_path)
+            size_in_bytes = file_path.stat().st_size
             size = (
                 f"{round(size_in_bytes / 1048576, 2)} MB"
                 if size_in_bytes > 1048576
                 else f"{round(size_in_bytes / 1024, 2)} KB"
             )
 
-            if check_sha1():
+            if check_sha1(file_path, sha1):
                 print(f"文件SHA1校验一致。文件大小：{size_in_bytes} B（{size}）")
                 success = True
                 break
             print("文件SHA1校验不一致，重新尝试下载。")
-        except SSLError as e:
-            print(f"遇到SSL错误：{e}")
-            if retries < MAX_RETRIES - 1:
-                print("服务器限制获取，将在15秒后尝试再次获取……")
-                time.sleep(15)
-            else:
-                print("达到最大重试次数，终止操作。")
-                break
-        except ReadTimeout as e:
-            print(f"获取超时：{e}")
-            if retries < MAX_RETRIES - 1:
-                print("将在5秒后尝试再次获取……")
-                time.sleep(5)
-            else:
-                print("达到最大重试次数，终止操作。")
-                break
         except RequestException as e:
             print(f"请求异常：{e}")
-            break
-        finally:
-            retries += 1
+            sys.exit()
 
     elapsed_time = time.time() - start_time
     if success:
-        print(f"文件“{file_name}”已下载完成，耗时{elapsed_time:.2f} s。\n")
+        print(f"文件“{file_name}”已下载完成，共耗时{elapsed_time:.2f} s。\n")
     else:
-        print(f"无法下载文件“{file_name}”。耗时{elapsed_time:.2f} s。\n")
+        print(f"无法下载文件“{file_name}”。共耗时{elapsed_time:.2f} s。\n")
 
 
 # 获取version_manifest_v2.json
