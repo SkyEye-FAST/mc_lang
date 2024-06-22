@@ -11,6 +11,7 @@ from typing import Tuple, Dict, Set
 from zipfile import ZipFile
 
 import requests as r
+from requests.exceptions import SSLError, ReadTimeout, RequestException
 
 # 当前绝对路径
 P = Path(__file__).resolve().parent
@@ -32,6 +33,8 @@ LANG_LIST: Tuple[str, ...] = (
     "ko_kr",
     "vi_vn",
 )
+
+MAX_RETRIES = 3  # 最大重试次数
 
 
 def get_response(url: str) -> r.Response:
@@ -65,25 +68,57 @@ def get_file(url: str, file_name: str, file_path: Path, sha1: str) -> None:
         sha1 (str): 文件的SHA1校验值
     """
 
-    start_time = time.time()
-    success = False
-    for _ in range(3):
+    def download_file():
         with open(file_path, "wb") as f:
             f.write(get_response(url).content)
 
-        size_in_bytes = file_path.stat().st_size
-        size = (
-            f"{round(size_in_bytes / 1048576, 2)} MB"
-            if size_in_bytes > 1048576
-            else f"{round(size_in_bytes / 1024, 2)} KB"
-        )
-
+    def check_sha1():
         with file_path.open("rb") as f:
-            if hashlib.file_digest(f, "sha1").hexdigest() == sha1:
+            return hashlib.file_digest(f, "sha1").hexdigest() == sha1
+
+    def get_size_in_bytes():
+        return file_path.stat().st_size
+
+    retries = 0
+    start_time = time.time()
+    success = False
+
+    while retries < MAX_RETRIES:
+        try:
+            download_file()
+            size_in_bytes = get_size_in_bytes()
+            size = (
+                f"{round(size_in_bytes / 1048576, 2)} MB"
+                if size_in_bytes > 1048576
+                else f"{round(size_in_bytes / 1024, 2)} KB"
+            )
+
+            if check_sha1():
                 print(f"文件SHA1校验一致。文件大小：{size_in_bytes} B（{size}）")
                 success = True
                 break
             print("文件SHA1校验不一致，重新尝试下载。")
+        except SSLError as e:
+            print(f"遇到SSL错误：{e}")
+            if retries < MAX_RETRIES - 1:
+                print("服务器限制获取，将在15秒后尝试再次获取……")
+                time.sleep(15)
+            else:
+                print("达到最大重试次数，终止操作。")
+                break
+        except ReadTimeout as e:
+            print(f"获取超时：{e}")
+            if retries < MAX_RETRIES - 1:
+                print("将在5秒后尝试再次获取……")
+                time.sleep(5)
+            else:
+                print("达到最大重试次数，终止操作。")
+                break
+        except RequestException as e:
+            print(f"请求异常：{e}")
+            break
+        finally:
+            retries += 1
 
     elapsed_time = time.time() - start_time
     if success:
@@ -156,22 +191,20 @@ for lang in language_files_list:
         print(f"{lang}不存在。\n")
 
 # 定义常量
-PREFIXES: Tuple[str, ...] = (
-    "block.",
-    "item.minecraft.",
-    "entity.minecraft.",
-    "biome.",
-    "effect.minecraft.",
-    "enchantment.minecraft.",
-    "trim_pattern.",
-    "upgrade.",
-    "filled_map",
+VALID_PATTERN = re.compile(
+    r"^(block\.minecraft\.[^.]*"
+    r"|entity\.minecraft\.[^.]*"
+    r"|item\.minecraft\.[^.]*"
+    r"|item\.minecraft\.[^.]*\.effect\.[^.]*"
+    r"|biome\..*"
+    r"|effect\.minecraft\.[^.]*"
+    r"|enchantment\.minecraft\..*"
+    r"|upgrade\..*"
+    r"|filled_map\..*"
+    r"|trim_pattern\..*"
+    r"|advancements\.[^.]*\.[^.]*\.title)$"
 )
-INVALID_BLOCK_ITEM_ENTITY_PATTERN = re.compile(
-    r"(block\.minecraft\.|item\.minecraft\.|entity\.minecraft\.)[^.]*\."
-)
-ITEM_EFFECT_PATTERN = re.compile(r"item\.minecraft\.[^.]*\.effect\.[^.]*")
-ADVANCEMENTS_TITLE_PATTERN = re.compile(r"advancements\.(.*)\.title")
+
 EXCLUSIONS: Set[str] = {
     "block.minecraft.set_spawn",
     "entity.minecraft.falling_block_type",
@@ -193,18 +226,11 @@ def is_valid_key(translation_key: str) -> bool:
     Returns:
         bool: 如果键名有效，返回 True；否则返回 False
     """
-
-    if ADVANCEMENTS_TITLE_PATTERN.match(translation_key):
-        return True
-    if not translation_key.startswith(PREFIXES):
-        return False
-    if translation_key in EXCLUSIONS or "pottery_shard" in translation_key:
-        return False
-    if ITEM_EFFECT_PATTERN.match(translation_key):
-        return True
-    if INVALID_BLOCK_ITEM_ENTITY_PATTERN.match(translation_key):
-        return False
-    return True
+    return (
+        translation_key not in EXCLUSIONS
+        and "pottery_shard" not in translation_key
+        and bool(VALID_PATTERN.match(translation_key))
+    )
 
 
 # 修改语言文件
