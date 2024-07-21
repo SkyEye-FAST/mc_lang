@@ -242,6 +242,7 @@ VALID_PATTERN = re.compile(
 
 EXCLUSIONS: Set[str] = {
     "block.minecraft.set_spawn",
+    "enchantment.minecraft.sweeping",
     "entity.minecraft.falling_block_type",
     "filled_map.id",
     "filled_map.level",
