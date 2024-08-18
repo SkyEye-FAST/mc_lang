@@ -2,13 +2,14 @@
 """Minecraft语言文件更新器"""
 
 import hashlib
-import json
 import re
 import sys
 import time
 from pathlib import Path
 from typing import Tuple, Dict, Set
 from zipfile import ZipFile
+
+import ujson
 
 import requests as r
 from requests.exceptions import SSLError, ReadTimeout, RequestException
@@ -272,8 +273,8 @@ def is_valid_key(translation_key: str) -> bool:
 # 修改语言文件
 for lang_name in LANG_LIST:
     with open(LANG_DIR_FULL / f"{lang_name}.json", "r", encoding="utf-8") as l:
-        data: Dict[str, str] = json.load(l)
+        data: Dict[str, str] = ujson.load(l)
     edited_data: Dict[str, str] = {k: v for k, v in data.items() if is_valid_key(k)}
     with open(LANG_DIR_VALID / f"{lang_name}.json", "w", encoding="utf-8") as l:
-        json.dump(edited_data, l, ensure_ascii=False, indent=4)
+        ujson.dump(edited_data, l, ensure_ascii=False, indent=4)
     print(f"已提取“{lang_name}.json”的有效字符串。")
