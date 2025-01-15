@@ -1137,6 +1137,8 @@
     "block.minecraft.tall_seagrass": "Tall Seagrass",
     "block.minecraft.target": "Target",
     "block.minecraft.terracotta": "Terracotta",
+    "block.minecraft.test_block": "Test Block",
+    "block.minecraft.test_instance_block": "Test Instance Block",
     "block.minecraft.tinted_glass": "Tinted Glass",
     "block.minecraft.tnt": "TNT",
     "block.minecraft.torch": "Torch",
