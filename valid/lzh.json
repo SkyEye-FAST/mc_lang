@@ -1137,6 +1137,8 @@
     "block.minecraft.tall_seagrass": "高海艸",
     "block.minecraft.target": "靶",
     "block.minecraft.terracotta": "陶",
+    "block.minecraft.test_block": "測塊",
+    "block.minecraft.test_instance_block": "測譬",
     "block.minecraft.tinted_glass": "蔽明琉璃",
     "block.minecraft.tnt": "灹藥",
     "block.minecraft.torch": "炬",

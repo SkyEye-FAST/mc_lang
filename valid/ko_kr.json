@@ -1137,6 +1137,8 @@
     "block.minecraft.tall_seagrass": "키 큰 해초",
     "block.minecraft.target": "과녁",
     "block.minecraft.terracotta": "테라코타",
+    "block.minecraft.test_block": "테스트 블록",
+    "block.minecraft.test_instance_block": "테스트 인스턴스 블록",
     "block.minecraft.tinted_glass": "차광 유리",
     "block.minecraft.tnt": "TNT",
     "block.minecraft.torch": "횃불",

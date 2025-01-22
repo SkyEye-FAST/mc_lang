@@ -1137,6 +1137,8 @@
     "block.minecraft.tall_seagrass": "背の高い海草",
     "block.minecraft.target": "的",
     "block.minecraft.terracotta": "テラコッタ",
+    "block.minecraft.test_block": "テストブロック",
+    "block.minecraft.test_instance_block": "テストインスタンスブロック",
     "block.minecraft.tinted_glass": "遮光ガラス",
     "block.minecraft.tnt": "TNT",
     "block.minecraft.torch": "松明",
