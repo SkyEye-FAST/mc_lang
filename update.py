@@ -6,26 +6,24 @@ import re
 import sys
 import time
 from pathlib import Path
-from typing import Tuple, Dict, Set
+from typing import Tuple, Dict, Set, Final
 from zipfile import ZipFile
 
 import ujson
-
 import requests as r
 from requests.exceptions import SSLError, ReadTimeout, RequestException
-from rich.progress import Progress, BarColumn, TimeRemainingColumn, TextColumn
 
 # 当前绝对路径
-P = Path(__file__).resolve().parent
+P: Final[Path] = Path(__file__).resolve().parent
 
 # 语言文件文件夹
-LANG_DIR_FULL = P / "full"
-LANG_DIR_VALID = P / "valid"
+LANG_DIR_FULL: Final[Path] = P / "full"
+LANG_DIR_VALID: Final[Path] = P / "valid"
 LANG_DIR_FULL.mkdir(exist_ok=True)
 LANG_DIR_VALID.mkdir(exist_ok=True)
 
 # 语言列表
-LANG_LIST: Tuple[str, ...] = (
+LANG_LIST: Final[Tuple[str, ...]] = (
     "en_us",
     "zh_cn",
     "zh_hk",
@@ -36,18 +34,17 @@ LANG_LIST: Tuple[str, ...] = (
     "vi_vn",
 )
 
-MAX_RETRIES = 3  # 最大重试次数
+MAX_RETRIES: Final[int] = 3  # 最大重试次数
 
 
 def get_response(url: str) -> r.Response | None:
-    """
-    获取HTTP响应，并处理异常和重试逻辑。
+    """获取HTTP响应，并处理异常和重试逻辑。
 
     Args:
-        url (str): 请求的URL
+        url (str): 请求的URL地址
 
     Returns:
-        r.Response: 响应对象，如果无法获取响应则返回None
+        r.Response | None: Response对象，如果请求失败则返回None
     """
 
     retries = 0
@@ -81,39 +78,12 @@ def get_response(url: str) -> r.Response | None:
     return None
 
 
-def download_file(url: str, file_path: Path) -> None:
-    """
-    下载文件。
-
-    Args:
-        url (str): 文件下载URL
-        file_path (Path): 文件保存路径
-    """
-    resp = get_response(url)
-    if resp:
-        total = int(resp.headers.get("content-length", 0))
-        with open(file_path, "wb") as f, Progress(
-            TextColumn("[bold blue]{task.fields[filename]}", justify="right"),
-            BarColumn(),
-            TextColumn("[progress.percentage]{task.percentage:>3.1f}%"),
-            TimeRemainingColumn(compact=True),
-        ) as progress:
-            task = progress.add_task("download", filename=file_path.name, total=total)
-            for chunk in resp.iter_content(1024):
-                f.write(chunk)
-                progress.update(task, advance=len(chunk))
-    else:
-        print("未成功获取响应。")
-        sys.exit()
-
-
 def check_sha1(file_path: Path, sha1: str) -> bool:
-    """
-    校验文件的SHA1值。
+    """校验文件的SHA1值。
 
     Args:
         file_path (Path): 文件路径
-        sha1 (str): 文件的SHA1校验值
+        sha1 (str): 预期的SHA1校验值
 
     Returns:
         bool: 校验是否通过
@@ -124,14 +94,13 @@ def check_sha1(file_path: Path, sha1: str) -> bool:
 
 
 def get_file(url: str, file_name: str, file_path: Path, sha1: str) -> None:
-    """
-    下载文件并校验SHA1值。
+    """下载文件并校验SHA1值。
 
     Args:
         url (str): 文件下载URL
         file_name (str): 文件名称
         file_path (Path): 文件保存路径
-        sha1 (str): 文件的SHA1校验值
+        sha1 (str): 预期的SHA1校验值
     """
 
     start_time = time.time()
@@ -139,7 +108,8 @@ def get_file(url: str, file_name: str, file_path: Path, sha1: str) -> None:
 
     for _ in range(MAX_RETRIES):
         try:
-            download_file(url, file_path)
+            with open(file_path, "wb") as f:
+                f.write(get_response(url).content)
             size_in_bytes = file_path.stat().st_size
             size = (
                 f"{round(size_in_bytes / 1048576, 2)} MB"
@@ -254,14 +224,13 @@ EXCLUSIONS: Set[str] = {
 
 
 def is_valid_key(translation_key: str) -> bool:
-    """
-    判断是否为有效键名。
+    """判断翻译键名是否有效。
 
     Args:
         translation_key (str): 需要验证的键名
 
     Returns:
-        bool: 如果键名有效，返回 True；否则返回 False
+        bool: 键名是否有效
     """
     return (
         translation_key not in EXCLUSIONS
@@ -275,6 +244,8 @@ for lang_name in LANG_LIST:
     with open(LANG_DIR_FULL / f"{lang_name}.json", "r", encoding="utf-8") as l:
         data: Dict[str, str] = ujson.load(l)
     edited_data: Dict[str, str] = {k: v for k, v in data.items() if is_valid_key(k)}
-    with open(LANG_DIR_VALID / f"{lang_name}.json", "w", encoding="utf-8") as l:
+    with open(
+        LANG_DIR_VALID / f"{lang_name}.json", "w", encoding="utf-8", newline="\n"
+    ) as l:
         ujson.dump(edited_data, l, ensure_ascii=False, indent=4)
     print(f"已提取“{lang_name}.json”的有效字符串。")
