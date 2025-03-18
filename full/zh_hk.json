@@ -5742,7 +5742,7 @@
     "potion.withAmplifier": "%s %s",
     "potion.withDuration": "%s（%s）",
     "predicate.unknown": "未知述詞：%s",
-    "quickplay.error.invalid_identifier": "未發現具有指定識別碼的世界",
+    "quickplay.error.invalid_identifier": "未發現具有指定識別符的世界",
     "quickplay.error.realm_connect": "無法連線到 Realm",
     "quickplay.error.realm_permission": "權限不足，無法連線到此 Realm",
     "quickplay.error.title": "無法快速進入遊戲",
