@@ -3770,7 +3770,7 @@
     "gui.all": "Tất cả",
     "gui.back": "Quay lại",
     "gui.banned.description": "%s\n\n%s\n\nTìm hiểu thêm tại liên kết sau: %s",
-    "gui.banned.description.permanent": "Tài khoản của bạn bị cấm vĩnh viễn, có nghĩa là bạn không thể chơi trực tuyến hoặc tham gia Realms.",
+    "gui.banned.description.permanent": "Tài khoản của bạn đã bị cấm vĩnh viễn, điều này có nghĩa là bạn không thể chơi trực tuyến hoặc tham gia Realm.",
     "gui.banned.description.reason": "Gần đây chúng tôi đã nhận được báo cáo về hành vi xấu của tài khoản của bạn. Kiểm duyệt viên của chúng tôi đã xem xét trường hợp của bạn và xác định nó là %s, điều này vi phạm Tiêu chuẩn cộng đồng của Minecraft.",
     "gui.banned.description.reason_id": "Mã: %s",
     "gui.banned.description.reason_id_message": "Mã: %s - %s",
