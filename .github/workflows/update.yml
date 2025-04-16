@@ -28,7 +28,9 @@ jobs:
           python update.py
 
       - name: Prettify code
-        uses: creyD/prettier_action@v4
+        uses: creyD/prettier_action@v4.3
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Commit
         uses: EndBug/add-and-commit@v9
