@@ -1,29 +1,28 @@
-# -*- encoding: utf-8 -*-
-"""Minecraft语言文件更新器"""
+"""Minecraft Language File Updater"""
 
 import hashlib
 import re
 import sys
 import time
 from pathlib import Path
-from typing import Tuple, Dict, Set, Final
+from typing import Final
 from zipfile import ZipFile
 
 import ujson
 import requests as r
 from requests.exceptions import SSLError, ReadTimeout, RequestException
 
-# 当前绝对路径
+# Current absolute path
 P: Final[Path] = Path(__file__).resolve().parent
 
-# 语言文件文件夹
+# Language file directories
 LANG_DIR_FULL: Final[Path] = P / "full"
 LANG_DIR_VALID: Final[Path] = P / "valid"
 LANG_DIR_FULL.mkdir(exist_ok=True)
 LANG_DIR_VALID.mkdir(exist_ok=True)
 
-# 语言列表
-LANG_LIST: Final[Tuple[str, ...]] = (
+# Language list
+LANG_LIST: Final[tuple[str, ...]] = (
     "en_us",
     "zh_cn",
     "zh_hk",
@@ -34,17 +33,17 @@ LANG_LIST: Final[Tuple[str, ...]] = (
     "vi_vn",
 )
 
-MAX_RETRIES: Final[int] = 3  # 最大重试次数
+MAX_RETRIES: Final[int] = 3  # Maximum retry attempts
 
 
 def get_response(url: str) -> r.Response | None:
-    """获取HTTP响应，并处理异常和重试逻辑。
+    """Get HTTP response and handle exceptions and retry logic.
 
     Args:
-        url (str): 请求的URL地址
+        url (str): URL to request
 
     Returns:
-        r.Response | None: Response对象，如果请求失败则返回None
+        r.Response | None: Response object, or None if request fails
     """
 
     retries = 0
@@ -54,23 +53,23 @@ def get_response(url: str) -> r.Response | None:
             resp.raise_for_status()
             return resp
         except SSLError as e:
-            print(f"遇到SSL错误：{e}")
+            print(f"SSL Error encountered: {e}")
             if retries < MAX_RETRIES - 1:
-                print("服务器限制获取，将在15秒后尝试再次获取……")
+                print("Server access restricted, retrying in 15 seconds...")
                 time.sleep(15)
             else:
-                print("达到最大重试次数，终止操作。")
+                print("Maximum retry attempts reached. Operation terminated.")
                 return None
         except ReadTimeout as e:
-            print(f"获取超时：{e}")
+            print(f"Request timeout: {e}")
             if retries < MAX_RETRIES - 1:
-                print("将在5秒后尝试再次获取……")
+                print("Retrying in 5 seconds...")
                 time.sleep(5)
             else:
-                print("达到最大重试次数，终止操作。")
+                print("Maximum retry attempts reached. Operation terminated.")
                 return None
         except RequestException as ex:
-            print(f"请求发生错误: {ex}")
+            print(f"Request error occurred: {ex}")
             return None
         finally:
             retries += 1
@@ -79,14 +78,14 @@ def get_response(url: str) -> r.Response | None:
 
 
 def check_sha1(file_path: Path, sha1: str) -> bool:
-    """校验文件的SHA1值。
+    """Verify file's SHA1 value.
 
     Args:
-        file_path (Path): 文件路径
-        sha1 (str): 预期的SHA1校验值
+        file_path (Path): Path to the file
+        sha1 (str): Expected SHA1 checksum
 
     Returns:
-        bool: 校验是否通过
+        bool: Whether verification passed
     """
 
     with file_path.open("rb") as f:
@@ -94,13 +93,13 @@ def check_sha1(file_path: Path, sha1: str) -> bool:
 
 
 def get_file(url: str, file_name: str, file_path: Path, sha1: str) -> None:
-    """下载文件并校验SHA1值。
+    """Download file and verify SHA1 value.
 
     Args:
-        url (str): 文件下载URL
-        file_name (str): 文件名称
-        file_path (Path): 文件保存路径
-        sha1 (str): 预期的SHA1校验值
+        url (str): File download URL
+        file_name (str): File name
+        file_path (Path): File save path
+        sha1 (str): Expected SHA1 checksum
     """
 
     start_time = time.time()
@@ -118,75 +117,75 @@ def get_file(url: str, file_name: str, file_path: Path, sha1: str) -> None:
             )
 
             if check_sha1(file_path, sha1):
-                print(f"文件SHA1校验一致。文件大小：{size_in_bytes} B（{size}）")
+                print(f"File SHA1 checksum matches. File size: {size_in_bytes} B ({size})")
                 success = True
                 break
-            print("文件SHA1校验不一致，重新尝试下载。")
+            print("File SHA1 checksum mismatch, retrying download.")
         except RequestException as e:
-            print(f"请求异常：{e}")
+            print(f"Request error: {e}")
             sys.exit()
 
     elapsed_time = time.time() - start_time
     if success:
-        print(f"文件“{file_name}”已下载完成，共耗时{elapsed_time:.2f} s。\n")
+        print(f'File "{file_name}" downloaded successfully. Time elapsed: {elapsed_time:.2f} s.\n')
     else:
-        print(f"无法下载文件“{file_name}”。共耗时{elapsed_time:.2f} s。\n")
+        print(f'Unable to download file "{file_name}". Time elapsed: {elapsed_time:.2f} s.\n')
 
 
-# 获取version_manifest_v2.json
+# Get version_manifest_v2.json
 version_manifest_path = P / "version_manifest_v2.json"
-print("正在获取版本清单“version_manifest_v2.json”的内容……\n")
-version_manifest_json: Dict = get_response(
+print('Retrieving content of version manifest "version_manifest_v2.json"...\n')
+version_manifest_json: dict = get_response(
     "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
 ).json()
 
-# 获取版本
+# Get version
 V: str = version_manifest_json["latest"]["snapshot"]
 with open(P / "version.txt", "w", encoding="utf-8") as ver:
     ver.write(V)
-version_info: Dict = next(
+version_info: dict = next(
     (_ for _ in version_manifest_json["versions"] if _["id"] == V), {}
 )
 if not version_info:
-    print("无法在版本清单中找到最新版本。")
+    print("Could not find the latest version in the version manifest.")
     sys.exit()
-print(f"选择的版本：{V}\n")
+print(f"Selected version: {V}\n")
 
-# 获取client.json
+# Get client.json
 client_manifest_url: str = version_info["url"]
-print(f"正在获取客户端索引文件“{client_manifest_url.rsplit('/', 1)[-1]}”的内容……")
-client_manifest: Dict = get_response(client_manifest_url).json()
+print(f"Fetching client manifest file '{client_manifest_url.rsplit('/', 1)[-1]}'...")
+client_manifest: dict = get_response(client_manifest_url).json()
 
-# 获取资产索引文件
+# Get asset index file
 asset_index_url: str = client_manifest["assetIndex"]["url"]
-print(f"正在获取资产索引文件“{asset_index_url.rsplit('/', 1)[-1]}”的内容……\n")
-asset_index: Dict[str, Dict[str, str]] = get_response(asset_index_url).json()["objects"]
+print(f"Fetching asset index file '{asset_index_url.rsplit('/', 1)[-1]}'...\n")
+asset_index: dict[str, dict[str, str]] = get_response(asset_index_url).json()["objects"]
 
-# 获取客户端JAR
+# Get client JAR
 client_url: str = client_manifest["downloads"]["client"]["url"]
 client_sha1: str = client_manifest["downloads"]["client"]["sha1"]
 client_path = LANG_DIR_FULL / "client.jar"
-print(f"正在下载客户端Java归档“client.jar”（{client_sha1}）……")
+print(f"Downloading client Java archive 'client.jar' ({client_sha1})...")
 get_file(client_url, "client.jar", client_path, client_sha1)
 
-# 解压English (United States)语言文件
+# Extract English (United States) language file
 with ZipFile(client_path) as client:
     with client.open("assets/minecraft/lang/en_us.json") as content:
         with open(LANG_DIR_FULL / "en_us.json", "wb") as en:
-            print("正在从client.jar解压语言文件“en_us.json”……")
+            print("Extracting language file 'en_us.json' from client.jar...")
             en.write(content.read())
 
-# 删除客户端JAR
-print("正在删除client.jar……\n")
+# Delete client JAR
+print("Deleting client.jar...\n")
 client_path.unlink()
 
-# 获取语言文件
+# Get language files
 language_files_list = [f"{_}.json" for _ in LANG_LIST if _ != "en_us"]
 for lang in language_files_list:
     lang_asset = asset_index.get(f"minecraft/lang/{lang}")
     if lang_asset:
         file_hash = lang_asset["hash"]
-        print(f"正在下载语言文件“{lang}”（{file_hash}）……")
+        print(f'Downloading language file "{lang}" ({file_hash})...')
         get_file(
             f"https://resources.download.minecraft.net/{file_hash[:2]}/{file_hash}",
             lang,
@@ -194,9 +193,9 @@ for lang in language_files_list:
             file_hash,
         )
     else:
-        print(f"{lang}不存在。\n")
+        print(f"{lang} does not exist.\n")
 
-# 定义常量
+# Define constants
 VALID_PATTERN = re.compile(
     r"^(block\.minecraft\.[^.]*"
     r"|entity\.minecraft\.[^.]*"
@@ -211,7 +210,7 @@ VALID_PATTERN = re.compile(
     r"|advancements\.[^.]*\.[^.]*\.title)$"
 )
 
-EXCLUSIONS: Set[str] = {
+EXCLUSIONS: set[str] = {
     "block.minecraft.set_spawn",
     "enchantment.minecraft.sweeping",
     "entity.minecraft.falling_block_type",
@@ -224,13 +223,13 @@ EXCLUSIONS: Set[str] = {
 
 
 def is_valid_key(translation_key: str) -> bool:
-    """判断翻译键名是否有效。
+    """Determine if a translation key is valid.
 
     Args:
-        translation_key (str): 需要验证的键名
+        translation_key (str): Key name to validate
 
     Returns:
-        bool: 键名是否有效
+        bool: Whether the key is valid
     """
     return (
         translation_key not in EXCLUSIONS
@@ -239,13 +238,14 @@ def is_valid_key(translation_key: str) -> bool:
     )
 
 
-# 修改语言文件
+# Modify language files
 for lang_name in LANG_LIST:
     with open(LANG_DIR_FULL / f"{lang_name}.json", "r", encoding="utf-8") as l:
-        data: Dict[str, str] = ujson.load(l)
-    edited_data: Dict[str, str] = {k: v for k, v in data.items() if is_valid_key(k)}
+        data: dict[str, str] = ujson.load(l)
+    edited_data: dict[str, str] = {k: v for k, v in data.items() if is_valid_key(k)}
     with open(
         LANG_DIR_VALID / f"{lang_name}.json", "w", encoding="utf-8", newline="\n"
     ) as l:
-        ujson.dump(edited_data, l, ensure_ascii=False, indent=4)
-    print(f"已提取“{lang_name}.json”的有效字符串。")
+        ujson.dump(edited_data, l, ensure_ascii=False, indent=2)
+    print(f'Valid strings extracted from "{lang_name}.json".')
+
