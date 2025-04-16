@@ -11,7 +11,10 @@ jobs:
       matrix:
         python-version: ['3.13']
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -29,8 +32,6 @@ jobs:
 
       - name: Prettify code
         uses: creyD/prettier_action@v4.3
-        with:
-          ref: ${{ github.head_ref }}
 
       - name: Commit
         uses: EndBug/add-and-commit@v9
