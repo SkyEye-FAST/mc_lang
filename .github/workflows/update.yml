@@ -2,7 +2,7 @@ name: Update language files
 
 on:
   schedule:
-    - cron: '15 16 * * *'
+    - cron: '26 4 * * *'
 
 jobs:
   build:
@@ -32,6 +32,8 @@ jobs:
 
       - name: Prettify code
         uses: creyD/prettier_action@v4.3
+        with:
+          prettier_options: --write **/*.json
 
       - name: Commit
         uses: EndBug/add-and-commit@v9
