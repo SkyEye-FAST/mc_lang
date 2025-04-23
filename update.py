@@ -38,6 +38,7 @@ LANG_LIST: Final[tuple[str, ...]] = (
     "nl_nl",
     "pt_br",
     "ru_ru",
+    "th_th",
     "uk_ua"
 )
 
