@@ -31,6 +31,14 @@ LANG_LIST: Final[tuple[str, ...]] = (
     "ja_jp",
     "ko_kr",
     "vi_vn",
+    "de_de",
+    "es_es",
+    "fr_fr",
+    "it_it",
+    "nl_nl",
+    "pt_br",
+    "ru_ru",
+    "uk_ua"
 )
 
 MAX_RETRIES: Final[int] = 3  # Maximum retry attempts
