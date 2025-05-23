@@ -41,7 +41,7 @@ You need to install [uv](https://docs.astral.sh/uv/) to run the updater, or simp
 The script is released under the [Apache 2.0 license](LICENSE).
 
 ``` text
-  Copyright 2025 SkyEye_FAST
+  Copyright 2024 - 2025 SkyEye_FAST
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
