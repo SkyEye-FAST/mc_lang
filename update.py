@@ -1,4 +1,9 @@
-"""Minecraft Language File Updater."""
+# @Author: SkyEye_FAST <skyeyefast@foxmail.com>
+# @Copyright: Copyright (C) 2024 - 2025 SkyEye_FAST
+"""Minecraft Language File Updater.
+
+A script to update and filter Minecraft language files automatically.
+"""
 
 import hashlib
 import re

@@ -1,0 +1,15 @@
+[project]
+name = "mc-lang"
+version = "1.0.0"
+description = "A script to update and filter Minecraft language files automatically."
+readme = "README.md"
+authors = [{ name = "SkyEye_FAST", email = "skyeyefast@foxmail.com" }]
+maintainers = [{ name = "SkyEye_FAST", email = "skyeyefast@foxmail.com" }]
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+dependencies = ["requests>=2.32.3", "ujson>=5.10.0"]
+
+[project.urls]
+Repository = "https://github.com/SkyEye_FAST/mc_lang"
+Issues = "https://github.com/SkyEye_FAST/mc_lang/issues"
