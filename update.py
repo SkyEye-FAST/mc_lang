@@ -1,23 +1,23 @@
-"""Minecraft Language File Updater"""
+"""Minecraft Language File Updater."""
 
 import hashlib
 import re
 import sys
 import time
 from pathlib import Path
-from typing import Final
+from typing import Any, Final
 from zipfile import ZipFile
 
-import ujson
 import requests as r
-from requests.exceptions import SSLError, ReadTimeout, RequestException
+import ujson
+from requests.exceptions import ReadTimeout, RequestException, SSLError
 
 # Current absolute path
-P: Final[Path] = Path(__file__).resolve().parent
+CURRENT_PATH: Final[Path] = Path(__file__).resolve().parent
 
 # Language file directories
-LANG_DIR_FULL: Final[Path] = P / "full"
-LANG_DIR_VALID: Final[Path] = P / "valid"
+LANG_DIR_FULL: Final[Path] = CURRENT_PATH / "full"
+LANG_DIR_VALID: Final[Path] = CURRENT_PATH / "valid"
 LANG_DIR_FULL.mkdir(exist_ok=True)
 LANG_DIR_VALID.mkdir(exist_ok=True)
 
@@ -39,7 +39,7 @@ LANG_LIST: Final[tuple[str, ...]] = (
     "pt_br",
     "ru_ru",
     "th_th",
-    "uk_ua"
+    "uk_ua",
 )
 
 MAX_RETRIES: Final[int] = 3  # Maximum retry attempts
@@ -53,8 +53,8 @@ def get_response(url: str) -> r.Response | None:
 
     Returns:
         r.Response | None: Response object, or None if request fails
-    """
 
+    """
     retries = 0
     while retries < MAX_RETRIES:
         try:
@@ -62,27 +62,25 @@ def get_response(url: str) -> r.Response | None:
             resp.raise_for_status()
             return resp
         except SSLError as e:
-            print(f"SSL Error encountered: {e}")
             if retries < MAX_RETRIES - 1:
+                print(f"SSL Error encountered: {e}")
                 print("Server access restricted, retrying in 15 seconds...")
                 time.sleep(15)
             else:
+                print(f"SSL Error encountered: {e}")
                 print("Maximum retry attempts reached. Operation terminated.")
-                return None
         except ReadTimeout as e:
-            print(f"Request timeout: {e}")
             if retries < MAX_RETRIES - 1:
+                print(f"Request timeout: {e}")
                 print("Retrying in 5 seconds...")
                 time.sleep(5)
             else:
+                print(f"Request timeout: {e}")
                 print("Maximum retry attempts reached. Operation terminated.")
-                return None
         except RequestException as ex:
             print(f"Request error occurred: {ex}")
-            return None
-        finally:
-            retries += 1
-
+            break
+        retries += 1
     return None
 
 
@@ -95,8 +93,8 @@ def check_sha1(file_path: Path, sha1: str) -> bool:
 
     Returns:
         bool: Whether verification passed
-    """
 
+    """
     with file_path.open("rb") as f:
         return hashlib.file_digest(f, "sha1").hexdigest() == sha1
 
@@ -109,15 +107,19 @@ def get_file(url: str, file_name: str, file_path: Path, sha1: str) -> None:
         file_name (str): File name
         file_path (Path): File save path
         sha1 (str): Expected SHA1 checksum
-    """
 
+    """
     start_time = time.time()
     success = False
 
     for _ in range(MAX_RETRIES):
+        resp = get_response(url)
+        if resp is None:
+            print(f"Failed to download {file_name}: No response received.")
+            continue
         try:
             with open(file_path, "wb") as f:
-                f.write(get_response(url).content)
+                f.write(resp.content)
             size_in_bytes = file_path.stat().st_size
             size = (
                 f"{round(size_in_bytes / 1048576, 2)} MB"
@@ -142,17 +144,21 @@ def get_file(url: str, file_name: str, file_path: Path, sha1: str) -> None:
 
 
 # Get version_manifest_v2.json
-version_manifest_path = P / "version_manifest_v2.json"
+version_manifest_path = CURRENT_PATH / "version_manifest_v2.json"
 print('Retrieving content of version manifest "version_manifest_v2.json"...\n')
-version_manifest_json: dict = get_response(
+version_manifest_resp = get_response(
     "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
-).json()
+)
+if version_manifest_resp is None:
+    print("Failed to retrieve version manifest.")
+    sys.exit()
+version_manifest_json: dict[str, Any] = version_manifest_resp.json()
 
 # Get version
 V: str = version_manifest_json["latest"]["snapshot"]
-with open(P / "version.txt", "w", encoding="utf-8") as ver:
+with open(CURRENT_PATH / "version.txt", "w", encoding="utf-8") as ver:
     ver.write(V)
-version_info: dict = next(
+version_info: dict[str, Any] = next(
     (_ for _ in version_manifest_json["versions"] if _["id"] == V), {}
 )
 if not version_info:
@@ -163,12 +169,20 @@ print(f"Selected version: {V}\n")
 # Get client.json
 client_manifest_url: str = version_info["url"]
 print(f"Fetching client manifest file '{client_manifest_url.rsplit('/', 1)[-1]}'...")
-client_manifest: dict = get_response(client_manifest_url).json()
+client_manifest_resp = get_response(client_manifest_url)
+if client_manifest_resp is None:
+    print("Failed to retrieve client manifest.")
+    sys.exit()
+client_manifest: dict[str, Any] = client_manifest_resp.json()
 
 # Get asset index file
 asset_index_url: str = client_manifest["assetIndex"]["url"]
 print(f"Fetching asset index file '{asset_index_url.rsplit('/', 1)[-1]}'...\n")
-asset_index: dict[str, dict[str, str]] = get_response(asset_index_url).json()["objects"]
+asset_index_resp = get_response(asset_index_url)
+if asset_index_resp is None:
+    print("Failed to retrieve asset index.")
+    sys.exit()
+asset_index: dict[str, dict[str, str]] = asset_index_resp.json()["objects"]
 
 # Get client JAR
 client_url: str = client_manifest["downloads"]["client"]["url"]
@@ -239,6 +253,7 @@ def is_valid_key(translation_key: str) -> bool:
 
     Returns:
         bool: Whether the key is valid
+
     """
     return (
         translation_key not in EXCLUSIONS
@@ -249,12 +264,11 @@ def is_valid_key(translation_key: str) -> bool:
 
 # Modify language files
 for lang_name in LANG_LIST:
-    with open(LANG_DIR_FULL / f"{lang_name}.json", "r", encoding="utf-8") as l:
-        data: dict[str, str] = ujson.load(l)
+    with open(LANG_DIR_FULL / f"{lang_name}.json", encoding="utf-8") as lang_file_in:
+        data: dict[str, str] = ujson.load(lang_file_in)
     edited_data: dict[str, str] = {k: v for k, v in data.items() if is_valid_key(k)}
     with open(
         LANG_DIR_VALID / f"{lang_name}.json", "w", encoding="utf-8", newline="\n"
-    ) as l:
-        ujson.dump(edited_data, l, ensure_ascii=False, indent=2)
+    ) as lang_file_out:
+        ujson.dump(edited_data, lang_file_out, ensure_ascii=False, indent=2)
     print(f'Valid strings extracted from "{lang_name}.json".')
-
