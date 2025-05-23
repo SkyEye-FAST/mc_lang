@@ -7,6 +7,7 @@ A collection of Minecraft language files, including translations for certain lan
 - `full/`: Contains all downloaded language files.
 - `valid/`: Contains filtered language files with only "valid" translation keys.
 - `version.txt`: The latest Minecraft snapshot version used.
+- `summary.json`: Some information about the languaeg files in the repository.
 
 ## Updater
 
