@@ -1,0 +1,74 @@
+{
+  "version": "25w21a",
+  "time": "2025-05-23T22:05:56.902124",
+  "files": {
+    "en_us.json": {
+      "sha1": "2ba63a2d02e2ee600dfbeed1b13cd4eccc7e554b",
+      "size": 467203
+    },
+    "zh_cn.json": {
+      "sha1": "5d8c3181a7d68c2e8a27a57ffead439991a6ed2c",
+      "size": 474258
+    },
+    "zh_hk.json": {
+      "sha1": "d51c221e05fab2c1b8e3c98bd2327dfe68ff28f2",
+      "size": 475045
+    },
+    "zh_tw.json": {
+      "sha1": "30acbe26d87933ba750760459bbde0a438f4df79",
+      "size": 477471
+    },
+    "lzh.json": {
+      "sha1": "64de49b83d6d1b64bb7857316f19aadb68156ddd",
+      "size": 427332
+    },
+    "ja_jp.json": {
+      "sha1": "0c0542b8418536d9cd9e40a7cedf28dde6acf2ba",
+      "size": 577476
+    },
+    "ko_kr.json": {
+      "sha1": "452f825941b581d42d87684d30e2b8430b9266ad",
+      "size": 542074
+    },
+    "vi_vn.json": {
+      "sha1": "4af184836bfd57aec83dca76c19344803f012c05",
+      "size": 562731
+    },
+    "de_de.json": {
+      "sha1": "22fce72fd8f442560cafdd451a721eff0cfb6e53",
+      "size": 517237
+    },
+    "es_es.json": {
+      "sha1": "891ac4bcd809090846f1c11e26c6b735aaf9c08f",
+      "size": 516357
+    },
+    "fr_fr.json": {
+      "sha1": "510dc8f56775ae5ce9a3aeffa04eeecc508cce5a",
+      "size": 528316
+    },
+    "it_it.json": {
+      "sha1": "21d4d9f4c8d84416c526849fcca8e4b53a72e4c4",
+      "size": 517747
+    },
+    "nl_nl.json": {
+      "sha1": "3c1baf6a7e9c1b1efbaae2e718c48eca31f12f69",
+      "size": 502099
+    },
+    "pt_br.json": {
+      "sha1": "8aa824ccda6f43d8ceae0e3c392fb127a7d65686",
+      "size": 506116
+    },
+    "ru_ru.json": {
+      "sha1": "5112aad69d3e3128c5a124d08654cf5293372a09",
+      "size": 650500
+    },
+    "th_th.json": {
+      "sha1": "517e144aacdef67a92aac4ac4a875badc467e541",
+      "size": 752590
+    },
+    "uk_ua.json": {
+      "sha1": "e806f9b97c3faecb5e164c76fd1e830ca2115347",
+      "size": 648977
+    }
+  }
+}

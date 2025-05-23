@@ -9,6 +9,7 @@ import hashlib
 import re
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Final
 from zipfile import ZipFile
@@ -160,16 +161,16 @@ if version_manifest_resp is None:
 version_manifest_json: dict[str, Any] = version_manifest_resp.json()
 
 # Get version
-V: str = version_manifest_json["latest"]["snapshot"]
+VERSION: str = version_manifest_json["latest"]["snapshot"]
 with open(CURRENT_PATH / "version.txt", "w", encoding="utf-8") as ver:
-    ver.write(V)
+    ver.write(VERSION)
 version_info: dict[str, Any] = next(
-    (_ for _ in version_manifest_json["versions"] if _["id"] == V), {}
+    (_ for _ in version_manifest_json["versions"] if _["id"] == VERSION), {}
 )
 if not version_info:
     print("Could not find the latest version in the version manifest.")
     sys.exit()
-print(f"Selected version: {V}\n")
+print(f"Selected version: {VERSION}\n")
 
 # Get client.json
 client_manifest_url: str = version_info["url"]
@@ -277,3 +278,34 @@ for lang_name in LANG_LIST:
     ) as lang_file_out:
         ujson.dump(edited_data, lang_file_out, ensure_ascii=False, indent=2)
     print(f'Valid strings extracted from "{lang_name}.json".')
+
+# Generate summary.json
+summary = {"version": VERSION, "time": datetime.now().isoformat(), "files": {}}
+
+for lang_name in LANG_LIST:
+    file_path = LANG_DIR_FULL / f"{lang_name}.json"
+    if file_path.exists():
+        with file_path.open("rb") as f:
+            sha1 = hashlib.file_digest(f, "sha1").hexdigest()
+        size = file_path.stat().st_size
+        summary["files"][f"{lang_name}.json"] = {"sha1": sha1, "size": size}
+
+summary_path = CURRENT_PATH / "summary.json"
+old_summary = None
+if summary_path.exists():
+    with open(summary_path, encoding="utf-8") as f:
+        try:
+            old_summary = ujson.load(f)
+        except Exception:
+            old_summary = None
+
+if old_summary is not None:
+    old_files = old_summary.get("files", {})
+    new_files = summary["files"]
+    if old_files == new_files:
+        print("\nNo changes detected in language files. Will not change summary.json.")
+        sys.exit(0)
+
+with open(summary_path, "w", encoding="utf-8", newline="\n") as f:
+    ujson.dump(summary, f, ensure_ascii=False, indent=2)
+print("\nSummary generated successfully.")
