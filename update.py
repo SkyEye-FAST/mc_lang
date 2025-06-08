@@ -15,7 +15,7 @@ from typing import Any, Final
 from zipfile import ZipFile
 
 import requests as r
-import ujson
+import orjson
 from requests.exceptions import ReadTimeout, RequestException, SSLError
 
 # Current absolute path
@@ -271,12 +271,16 @@ def is_valid_key(translation_key: str) -> bool:
 # Modify language files
 for lang_name in LANG_LIST:
     with open(LANG_DIR_FULL / f"{lang_name}.json", encoding="utf-8") as lang_file_in:
-        data: dict[str, str] = ujson.load(lang_file_in)
+        data: dict[str, str] = orjson.loads(lang_file_in.read())
     edited_data: dict[str, str] = {k: v for k, v in data.items() if is_valid_key(k)}
     with open(
         LANG_DIR_VALID / f"{lang_name}.json", "w", encoding="utf-8", newline="\n"
     ) as lang_file_out:
-        ujson.dump(edited_data, lang_file_out, ensure_ascii=False, indent=2)
+        json_str = orjson.dumps(
+            edited_data,
+            option=orjson.OPT_INDENT_2,
+        ).decode('utf-8')
+        lang_file_out.write(json_str)
     print(f'Valid strings extracted from "{lang_name}.json".')
 
 # Generate summary.json
@@ -295,7 +299,7 @@ old_summary = None
 if summary_path.exists():
     with open(summary_path, encoding="utf-8") as f:
         try:
-            old_summary = ujson.load(f)
+            old_summary = orjson.loads(f.read())
         except Exception:
             old_summary = None
 
@@ -307,5 +311,9 @@ if old_summary is not None:
         sys.exit(0)
 
 with open(summary_path, "w", encoding="utf-8", newline="\n") as f:
-    ujson.dump(summary, f, ensure_ascii=False, indent=2)
+    json_str = orjson.dumps(
+        summary,
+        option=orjson.OPT_INDENT_2,
+    ).decode('utf-8')
+    f.write(json_str)
 print("\nSummary generated successfully.")
