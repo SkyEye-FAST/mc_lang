@@ -1,6 +1,6 @@
 {
-  "version": "1.21.6-rc1",
-  "time": "2025-06-16T15:09:21.890245",
+  "version": "1.21.6",
+  "time": "2025-06-17T15:09:34.118659",
   "files": {
     "en_us.json": {
       "sha1": "ffb573a84f88ebda14de97458379f7678915c915",
@@ -55,8 +55,8 @@
       "size": 502986
     },
     "pt_br.json": {
-      "sha1": "056954aae4adb3eff1210dc93ffefdffc413f0c0",
-      "size": 505387
+      "sha1": "67c46b782f184618067c49695369d06b99d4716a",
+      "size": 505389
     },
     "ru_ru.json": {
       "sha1": "767eb5fbef49c47afdfc85a1f1a60d3bd62ffcff",
