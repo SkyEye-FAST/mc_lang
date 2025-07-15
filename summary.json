@@ -1,6 +1,6 @@
 {
-  "version": "1.21.7",
-  "time": "2025-06-30T14:09:19.436481",
+  "version": "1.21.8-rc1",
+  "time": "2025-07-15T14:42:58.353540",
   "files": {
     "en_us.json": {
       "sha1": "254c0daacd4478dc7ed37ff42a9d76785e4ecdd5",
@@ -11,24 +11,24 @@
       "size": 475421
     },
     "zh_hk.json": {
-      "sha1": "ad8ffc635f6ab98e614020869befb5b504956fa3",
-      "size": 475962
+      "sha1": "cdc30c209e739f73ea8927f6706aa6359d488afd",
+      "size": 475881
     },
     "zh_tw.json": {
-      "sha1": "08df3f6dffdb2f3ecae9956759570578faf535e2",
-      "size": 478615
+      "sha1": "545a2b9cf72b9f47ef72d3c897327a2c019d6426",
+      "size": 478628
     },
     "lzh.json": {
-      "sha1": "4c92cec0610f54511fbbd5fc2e2a871ea42bdb5c",
+      "sha1": "3758e0e2f9cc908e3d355aa8ce2d9e19bbdac06f",
       "size": 428323
     },
     "ja_jp.json": {
-      "sha1": "f53090c2800d5f535837325e8bb3d309d339cb0d",
-      "size": 578774
+      "sha1": "fade8e43741fa68eeecd49bfe9db8a9a8bbfdc7f",
+      "size": 578768
     },
     "ko_kr.json": {
-      "sha1": "375296782d64c7a4feeccae68980064772f07451",
-      "size": 543343
+      "sha1": "809fc4c7269ffdf6f0020ed9e8ed8df654908a7e",
+      "size": 543339
     },
     "vi_vn.json": {
       "sha1": "7cdcb1fcb5193c05908e5d85f41e9d0ee5783032",
@@ -47,28 +47,28 @@
       "size": 529516
     },
     "it_it.json": {
-      "sha1": "cfd755c943456646799be931c0d17916e00a8dd1",
-      "size": 518974
+      "sha1": "5dc3142aa1ca96591eadbfa3b3fc859ab734a1fe",
+      "size": 519171
     },
     "nl_nl.json": {
       "sha1": "71aaa182b3cd85a01d907bf5abf8f8ace8ab7b9f",
       "size": 503311
     },
     "pt_br.json": {
-      "sha1": "74fca9dfe187743a435f268b6b1113ec94210c87",
-      "size": 505617
+      "sha1": "8f73339e9a0e4869931a1fddf833c3ca0fb293d8",
+      "size": 505629
     },
     "ru_ru.json": {
-      "sha1": "60a1ad167564da41551049fd095dbb8ac650b610",
-      "size": 651959
+      "sha1": "46b655f42223b8642a28a421b7736269a0077ea2",
+      "size": 651876
     },
     "th_th.json": {
       "sha1": "1e2006f1d44b8ba9b9c541bc29902e19ec9ecb3a",
       "size": 754553
     },
     "uk_ua.json": {
-      "sha1": "4c336edcad981e14fcce7c91488fa29fbd0922a8",
-      "size": 650481
+      "sha1": "ab059a185f3c4ddfa86f667d95b6de5811431684",
+      "size": 650444
     }
   }
 }
