@@ -4808,7 +4808,7 @@
     "item.modifiers.saddle": "Gesattelt:",
     "item.nbt_tags": "NBT: %s Eigenschaft(en)",
     "item.op_block_warning.line1": "Achtung:",
-    "item.op_block_warning.line2": "Gegenstand kann Befehle ausführen",
+    "item.op_block_warning.line2": "Gegenstand könnte Befehle ausführen",
     "item.op_block_warning.line3": "Nutzung auf eigene Gefahr!",
     "item.spawn_egg.peaceful": "Auf „Friedlich“ deaktiviert",
     "item.unbreakable": "Unzerstörbar",

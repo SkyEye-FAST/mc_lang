@@ -5768,7 +5768,7 @@
     "options.guiScale": "GUIの大きさ",
     "options.guiScale.auto": "自動",
     "options.hidden": "非表示",
-    "options.hideLightningFlashes": "稲光の非表示",
+    "options.hideLightningFlashes": "空の明滅の非表示",
     "options.hideLightningFlashes.tooltip": "落雷やその他の環境エフェクトに伴う空の明滅をなくします。これらのエフェクトそのものは引き続き表示されます。",
     "options.hideMatchedNames": "合致した名前を非表示",
     "options.hideMatchedNames.tooltip": "サードパーティー製のサーバーは非標準の形式でチャットを送信する場合があります。\nこの設定をオンにすると、非表示のプレイヤーはチャットの送信者の名前によって判別されます。",
