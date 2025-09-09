@@ -3744,7 +3744,7 @@
     "gamerule.allowEnteringNetherUsingPortals": "Дозволити Незер",
     "gamerule.allowEnteringNetherUsingPortals.description": "Контролює доступ гравців до Незеру.",
     "gamerule.allowFireTicksAwayFromPlayer": "Оновлювати вогонь далеко від гравців",
-    "gamerule.allowFireTicksAwayFromPlayer.description": "Визначає, чи мають вогонь і лава на відстані понад 8 чанків від будь-якого гравця оновлюватися",
+    "gamerule.allowFireTicksAwayFromPlayer.description": "Визначає, чи мають вогонь і лава на відстані понад 8 чанків від будь-якого гравця оновлюватися.",
     "gamerule.announceAdvancements": "Оголошувати досягнення",
     "gamerule.blockExplosionDropDecay": "Унаслідок вибухів від взаємодії з блоками, деякі блоки не випадатимуть",
     "gamerule.blockExplosionDropDecay.description": "Деякі з предметів, які випадають із блоків, знищених вибухами від взаємодій із блоками, зникають унаслідок вибуху.",

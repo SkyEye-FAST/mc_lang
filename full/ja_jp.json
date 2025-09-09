@@ -3819,7 +3819,7 @@
     "gamerule.playersSleepingPercentage.description": "夜をスキップするために必要なベッドで寝ているプレイヤーの割合を設定できます。",
     "gamerule.projectilesCanBreakBlocks": "飛び道具によるブロック破壊の可否",
     "gamerule.projectilesCanBreakBlocks.description": "飛び道具の着弾によって破壊されうるブロックが実際に破壊されるかどうかを設定できます。",
-    "gamerule.pvp": "PVPの有効化",
+    "gamerule.pvp": "PvPの有効化",
     "gamerule.pvp.description": "プレイヤーが他のプレイヤーに対してダメージを与えることができるかどうかを設定できます",
     "gamerule.randomTickSpeed": "ランダムティックの発生数",
     "gamerule.reducedDebugInfo": "デバッグ情報の制限",
