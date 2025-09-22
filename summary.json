@@ -1,6 +1,6 @@
 {
-  "version": "1.21.9-pre2",
-  "time": "2025-09-19T11:31:05.784487",
+  "version": "1.21.9-pre3",
+  "time": "2025-09-22T13:42:11.300309",
   "files": {
     "en_us.json": {
       "sha1": "ab04e7b944168cc5a595a2ac2311880ac036b253",
@@ -15,7 +15,7 @@
       "size": 488549
     },
     "zh_tw.json": {
-      "sha1": "448da0c47c352a892554a5973093ff851bb0c3ac",
+      "sha1": "bdd8c980d457885a17a2f4ca3467c05ee4eafec2",
       "size": 491309
     },
     "lzh.json": {
@@ -23,8 +23,8 @@
       "size": 439585
     },
     "ja_jp.json": {
-      "sha1": "6a2b58bd8b4c797c10062f936062819a5a97309e",
-      "size": 594508
+      "sha1": "28761a9077baf8f808ff6adfa8219e24b0a34baa",
+      "size": 594478
     },
     "ko_kr.json": {
       "sha1": "709806c7662dc8bfc733a22e5d0df77a51a90a2f",
@@ -35,8 +35,8 @@
       "size": 579247
     },
     "de_de.json": {
-      "sha1": "3184aff31363717bc2d21de73b2443ea007f0eb1",
-      "size": 532269
+      "sha1": "4a30a5a8f63f31c6963abf6d254bf8a3793c95b7",
+      "size": 532332
     },
     "es_es.json": {
       "sha1": "361d599adfd448fcff91d93c3474d0d226f8dbf0",
@@ -47,24 +47,24 @@
       "size": 543969
     },
     "it_it.json": {
-      "sha1": "18e7de2b9ed14e40feb218de78fb8b540c6808a9",
-      "size": 533139
+      "sha1": "9b9f83177e7691816b502b5567ec570738a76fec",
+      "size": 533142
     },
     "nl_nl.json": {
       "sha1": "4ef40f93cb8c1f31b46a198399046c89aa255ee8",
       "size": 517065
     },
     "pt_br.json": {
-      "sha1": "81e9276c63dd2007e10e503db3143e73e19095ee",
-      "size": 519580
+      "sha1": "698b593be17c09420f4218789150c35bf3829e38",
+      "size": 519592
     },
     "ru_ru.json": {
       "sha1": "60ee3d5dfa40a67245725dba7d946782aa6bb9ad",
       "size": 669911
     },
     "th_th.json": {
-      "sha1": "a5da25bb5e9a039db75e142ec13300936c13623a",
-      "size": 775899
+      "sha1": "b30ff8e0e5d115bbc928f0e3316b55897170df3c",
+      "size": 775758
     },
     "uk_ua.json": {
       "sha1": "666f28b76fd4c32e17d220b7e074fa90a9c927eb",
