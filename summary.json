@@ -1,6 +1,6 @@
 {
-  "version": "1.21.11-rc1",
-  "time": "2025-12-04T16:50:00.189410",
+  "version": "1.21.11-rc2",
+  "time": "2025-12-05T13:46:58.897508",
   "files": {
     "en_us.json": {
       "sha1": "58203151a2de14ebbee0c3904bfe8728802c2b1d",
@@ -35,8 +35,8 @@
       "size": 594616
     },
     "de_de.json": {
-      "sha1": "5cc3ef369ec5cc0e4e54b725cd038d6fc7cda9ca",
-      "size": 545889
+      "sha1": "432bf458319aa26b5fe2b6f1fcf9beb5d205a000",
+      "size": 545911
     },
     "es_es.json": {
       "sha1": "67cc77e9eb214a2f661b1fc5a9d445a8c345838c",
@@ -67,8 +67,8 @@
       "size": 796575
     },
     "uk_ua.json": {
-      "sha1": "04cd9dd2971be651d5136d6ace92508520130a37",
-      "size": 686641
+      "sha1": "00dcbb322bcc12173054820fba25629ea1990438",
+      "size": 686626
     }
   }
 }
