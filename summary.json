@@ -1,6 +1,6 @@
 {
-  "version": "1.21.11-rc3",
-  "time": "2025-12-08T15:10:23.705206",
+  "version": "1.21.11",
+  "time": "2025-12-09T16:12:50.565987",
   "files": {
     "en_us.json": {
       "sha1": "58203151a2de14ebbee0c3904bfe8728802c2b1d",
@@ -27,8 +27,8 @@
       "size": 610123
     },
     "ko_kr.json": {
-      "sha1": "3f3ffd28f6164658030237836b09c8120854e52e",
-      "size": 572351
+      "sha1": "b79d72c09f36d6a83c75865f6c0bbf9180520191",
+      "size": 572364
     },
     "vi_vn.json": {
       "sha1": "fde4bd8725edb58bb3a5ad3d73c93001fbc25b4e",
@@ -59,8 +59,8 @@
       "size": 532643
     },
     "ru_ru.json": {
-      "sha1": "2cb4167c8b04395c2862a7cf71a6273f1e0c8f03",
-      "size": 687263
+      "sha1": "15d1ab0be93845ccf835b75088d6776bee37250b",
+      "size": 687351
     },
     "th_th.json": {
       "sha1": "fb97b50bef970ff1d6382f09b7914a34e447d587",
