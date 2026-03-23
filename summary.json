@@ -1,6 +1,6 @@
 {
-  "version": "26.1-rc-2",
-  "time": "2026-03-20T14:34:00.989849",
+  "version": "26.1-rc-3",
+  "time": "2026-03-23T14:05:03.141898",
   "files": {
     "en_us.json": {
       "sha1": "889c3a172c93948c3c86c8d9460940d6410a7742",
@@ -23,8 +23,8 @@
       "size": 458378
     },
     "ja_jp.json": {
-      "sha1": "dd8649c537b9692781e24fe52d5fcedf5798fe8d",
-      "size": 622592
+      "sha1": "4a56ed308bc4765e68ca0756e1d79aa375153467",
+      "size": 622574
     },
     "ko_kr.json": {
       "sha1": "7f93c3329ec5f9cb7f4bee404c8727adc2ea000a",
@@ -35,12 +35,12 @@
       "size": 606428
     },
     "de_de.json": {
-      "sha1": "49a9370b68d63857223657ef91bc8c33fd9072f6",
-      "size": 556478
+      "sha1": "bf5e042cbdebddfab7c68e3deb752b9a004e7bcf",
+      "size": 556514
     },
     "es_es.json": {
-      "sha1": "e5c445494c32199da213f23978e3a7244d012419",
-      "size": 555849
+      "sha1": "613e98b3f4703eac0dd5952aa6d1c971e0322e64",
+      "size": 555844
     },
     "fr_fr.json": {
       "sha1": "b981631cce8e84f1af90d1cce0bb4c23b66759dd",
