@@ -1,74 +1,74 @@
 {
-  "version": "26.2-pre-4",
-  "time": "2026-06-04T15:51:12.399656",
+  "version": "26.2-pre-5",
+  "time": "2026-06-08T16:31:57.192828",
   "files": {
     "en_us.json": {
-      "sha1": "b302c222b8a0ca33e28fc30a0a86ba928d686c55",
-      "size": 518947
+      "sha1": "35fa45835df43e7371030cf2a0a4d49f44d56277",
+      "size": 519377
     },
     "zh_cn.json": {
-      "sha1": "5ac2fe417ba97a856223c381b8f7b00f88ab2355",
-      "size": 526472
+      "sha1": "f025722d43375be681b9b556657bd0ecf5f40f5e",
+      "size": 526556
     },
     "zh_hk.json": {
-      "sha1": "7413e304100551ec2c6ac742260bdcb2db6abda6",
-      "size": 526519
+      "sha1": "c5363d72173e901658eda7a6de60f18b586d9dbe",
+      "size": 526567
     },
     "zh_tw.json": {
-      "sha1": "60c0d07d536d5b7f3da0d72a0c6a5e31e3407cd4",
-      "size": 529758
+      "sha1": "79596a5e31fb209890cc973abf09ae82d3160ee1",
+      "size": 529850
     },
     "lzh.json": {
-      "sha1": "2fa2f9262acbc67d85c88687fa2987ff04f66570",
-      "size": 473355
+      "sha1": "eddbd052dbf5d880c5e7f7e0b42d75391d9f905f",
+      "size": 473358
     },
     "ja_jp.json": {
-      "sha1": "a261f036164adc018f9e4509fb88c3dd04a86d2b",
-      "size": 643749
+      "sha1": "b1cd92a5b0898650544d18133872be5b15c820d6",
+      "size": 643773
     },
     "ko_kr.json": {
-      "sha1": "63ebe3d09b547d11f626e8913311f9dc3ab4d679",
-      "size": 602988
+      "sha1": "7d58d7675e66edce2b833143583b073f294207df",
+      "size": 603095
     },
     "vi_vn.json": {
-      "sha1": "90893dcd3f10a9afa308d044f5137ecd2762e113",
-      "size": 626946
+      "sha1": "5a259b968055db4c26f1ef907d32961dd40c0b4e",
+      "size": 626979
     },
     "de_de.json": {
-      "sha1": "c6747d713bf8b9e1f19e7ce1271ef6ce7100fa78",
-      "size": 575176
+      "sha1": "9c19d0fc74d0c20b240eb800ed36970101274241",
+      "size": 575282
     },
     "es_es.json": {
-      "sha1": "10a187922b72e0e991e02e11254edd6c7040e929",
-      "size": 574275
+      "sha1": "37cab6fb6a8bd2d35b9a7d4c7beff3bebe36a352",
+      "size": 574359
     },
     "fr_fr.json": {
-      "sha1": "4e0b263fb0672f1586e7d8466114b88a81c8ac53",
-      "size": 588176
+      "sha1": "86e70ee7d3d1078d78b15e080d79b9abf4e7b486",
+      "size": 588296
     },
     "it_it.json": {
-      "sha1": "858e48d02e5d2aaa525afe7e1a5649dcb0e2b8ab",
-      "size": 574828
+      "sha1": "05f15b579bd08456678976e542c3943fe525dede",
+      "size": 574989
     },
     "nl_nl.json": {
-      "sha1": "57d62ba65805da6a1e4713c8d25ee7035269253b",
-      "size": 558156
+      "sha1": "15f3dc5141290dedd3e2c2b933068eaf58ced962",
+      "size": 558237
     },
     "pt_br.json": {
-      "sha1": "2352f75a14f3b481e660ce4d8a5a58e5f749f248",
-      "size": 560780
+      "sha1": "df87710841113729147c108b88b1998307706f47",
+      "size": 560858
     },
     "ru_ru.json": {
-      "sha1": "43ca41915d467d3447f034b71981d4347fa7fadc",
-      "size": 724552
+      "sha1": "b32a29665062034413a3da6b6f9750072288b0d5",
+      "size": 724742
     },
     "th_th.json": {
-      "sha1": "59d3790ba566716f91dc89807d4018d5c6240fc5",
-      "size": 842053
+      "sha1": "2d1ee546b78840256bbbd114ab346d6019e25e9b",
+      "size": 843213
     },
     "uk_ua.json": {
-      "sha1": "88c05fd854ea2831824df755ff787c52025e985b",
-      "size": 724038
+      "sha1": "ae104ac820a9c5fb4e9064efecafce7d9126bfa4",
+      "size": 724254
     }
   }
 }
