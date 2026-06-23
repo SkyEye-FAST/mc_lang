@@ -1,22 +1,22 @@
 {
-  "version": "26.2",
-  "time": "2026-06-16T18:12:11.272578",
+  "version": "26.3-snapshot-1",
+  "time": "2026-06-23T14:13:04.083219",
   "files": {
     "en_us.json": {
-      "sha1": "35fa45835df43e7371030cf2a0a4d49f44d56277",
-      "size": 519377
+      "sha1": "3b22ddb162756b541c99af4872d45608c406c51b",
+      "size": 524375
     },
     "zh_cn.json": {
-      "sha1": "6055d366b3523e9eb01c72b7bfbdb79c65353ae1",
-      "size": 527002
+      "sha1": "9da65b91be2825e91fb08df6e889237153d0b3a9",
+      "size": 527014
     },
     "zh_hk.json": {
       "sha1": "e21718c8257174e9920983e59d7f20829689530e",
       "size": 526965
     },
     "zh_tw.json": {
-      "sha1": "8be51098d689ed25551900d52bec7e29500f174b",
-      "size": 530320
+      "sha1": "253b2ec5a54f489c59cd5eccda160f5f19e04a54",
+      "size": 530323
     },
     "lzh.json": {
       "sha1": "6fc76d716eeb79ce9b24ae02fa141550b5524360",
@@ -27,8 +27,8 @@
       "size": 644342
     },
     "ko_kr.json": {
-      "sha1": "c39360d117d531d6ea9c9f93b330c5aadeaed71e",
-      "size": 603637
+      "sha1": "2b206c0689a80c79433e2439f97e0c9012264bee",
+      "size": 603592
     },
     "vi_vn.json": {
       "sha1": "8c4b8caf22b19936a36618cb51f5f96faac00533",
@@ -47,20 +47,20 @@
       "size": 588770
     },
     "it_it.json": {
-      "sha1": "536ef1230eafb426d9f2935ea7ac6dbe52fc6dba",
-      "size": 575565
+      "sha1": "2e928e06907bbc2218eeb40d77ae0354db5db798",
+      "size": 575573
     },
     "nl_nl.json": {
       "sha1": "b9be73c0fb9dc09deb8b9e309884edb7b951ab11",
       "size": 558673
     },
     "pt_br.json": {
-      "sha1": "ecb6e9e4ba1bf6c53a8961b135b3e7d32a4a76fd",
-      "size": 561232
+      "sha1": "7c0b0953ac08e6563157cfea9ef166f7a5bb1e64",
+      "size": 561241
     },
     "ru_ru.json": {
-      "sha1": "d950596c5661d8538fe379c264006d7fa98147ad",
-      "size": 725334
+      "sha1": "aac462bc68ae6796b63acbc31f6b2e37120d4673",
+      "size": 725415
     },
     "th_th.json": {
       "sha1": "a9cbf82d9b427e901b54aeae3baf32fcb22e38d6",
