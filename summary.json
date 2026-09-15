@@ -1,6 +1,6 @@
 {
-  "version": "26.3-rc-3",
-  "time": "2026-09-14T18:44:10.268272",
+  "version": "26.3",
+  "time": "2026-09-15T15:17:58.953110",
   "files": {
     "en_us.json": {
       "sha1": "b22392c061d51e964251369b9228bb017b390771",
@@ -15,28 +15,28 @@
       "size": 555687
     },
     "zh_tw.json": {
-      "sha1": "09a4bd7c66cff7b564e8f0a837fff3f652bde494",
-      "size": 558405
+      "sha1": "b02fb07e63284140e2d8eff28fe9870682b21506",
+      "size": 558391
     },
     "lzh.json": {
-      "sha1": "edc5361978b0c12eaf6158c45726c5e170d314df",
-      "size": 498176
+      "sha1": "d80cdc9801e7a0e1e8e29c01ca9661ad5cbd902e",
+      "size": 498145
     },
     "ja_jp.json": {
       "sha1": "93054df00419a33c4336b14c05c8896177556621",
       "size": 678394
     },
     "ko_kr.json": {
-      "sha1": "6c71b9f0d3ce56e9c80d6d6b6fff6732583ec620",
-      "size": 635195
+      "sha1": "bf807225fff9eb8225633fa7137edfb77e47c6bc",
+      "size": 635175
     },
     "vi_vn.json": {
       "sha1": "612605cbf91e82a38e8d3fd0513420cde1e1275a",
       "size": 659693
     },
     "de_de.json": {
-      "sha1": "17039838450fa3adfb1ed66732a23c3e6f438c8c",
-      "size": 605210
+      "sha1": "1e6be48676210ebc06742f833089f130e474ad83",
+      "size": 605189
     },
     "es_es.json": {
       "sha1": "413564be3bb728eb4113348a0bc004059c8f9dfa",
@@ -55,20 +55,20 @@
       "size": 588262
     },
     "pt_br.json": {
-      "sha1": "949e50efaa671bf71a57ca0323f0be5a04f9ae50",
-      "size": 594076
+      "sha1": "150b5bb96e81dfb8fac4dc22b28c7d5d1493a724",
+      "size": 594120
     },
     "ru_ru.json": {
-      "sha1": "721f4099481eb4213640c5c30b047935d3c34a53",
-      "size": 763176
+      "sha1": "7d707e730ceb37687a682b5b5691fb82ef0c69a7",
+      "size": 763214
     },
     "th_th.json": {
       "sha1": "bd82c12fcada733be2d682a4dd6e2bbbea54ed71",
       "size": 886256
     },
     "uk_ua.json": {
-      "sha1": "21bcc227c06073359aa56305a5f856343426fd67",
-      "size": 762949
+      "sha1": "cbcdcbd6b0428ec8744c9b92bacd756663d0a1d7",
+      "size": 762837
     }
   }
 }
