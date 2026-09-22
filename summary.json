@@ -1,25 +1,25 @@
 {
-  "version": "26.3",
-  "time": "2026-09-15T15:17:58.953110",
+  "version": "26.4-snapshot-1",
+  "time": "2026-09-22T15:48:04.357669",
   "files": {
     "en_us.json": {
-      "sha1": "b22392c061d51e964251369b9228bb017b390771",
-      "size": 546577
+      "sha1": "9d5ebb70ba5bc535f48855ec98e729c247ae646e",
+      "size": 546813
     },
     "zh_cn.json": {
-      "sha1": "a39b6311c1c167c40da1af6c81a680e2a0cb6b01",
-      "size": 554929
+      "sha1": "f22db18b03d23e406bdbe8df17ba6f2041035b5f",
+      "size": 554928
     },
     "zh_hk.json": {
-      "sha1": "9b9aede63e9118aefb7d81663a62532c801edd46",
-      "size": 555687
+      "sha1": "5a8b1929d8e2b38ba743e9800c38fc64213683ea",
+      "size": 555681
     },
     "zh_tw.json": {
-      "sha1": "b02fb07e63284140e2d8eff28fe9870682b21506",
-      "size": 558391
+      "sha1": "d6b80c1f8333d7940f18be2e4c24e5f56612c4c8",
+      "size": 558379
     },
     "lzh.json": {
-      "sha1": "d80cdc9801e7a0e1e8e29c01ca9661ad5cbd902e",
+      "sha1": "8fd2c03b2fdeb75e05be648b42226a9b0d635527",
       "size": 498145
     },
     "ja_jp.json": {
@@ -27,24 +27,24 @@
       "size": 678394
     },
     "ko_kr.json": {
-      "sha1": "bf807225fff9eb8225633fa7137edfb77e47c6bc",
-      "size": 635175
+      "sha1": "50e2f876751732b8a74eb7f8613d7ff6e6b1ee61",
+      "size": 635136
     },
     "vi_vn.json": {
       "sha1": "612605cbf91e82a38e8d3fd0513420cde1e1275a",
       "size": 659693
     },
     "de_de.json": {
-      "sha1": "1e6be48676210ebc06742f833089f130e474ad83",
-      "size": 605189
+      "sha1": "1e9ac14bd87578cd5a2432b416c3c8c1d6f80eb1",
+      "size": 605220
     },
     "es_es.json": {
       "sha1": "413564be3bb728eb4113348a0bc004059c8f9dfa",
       "size": 604716
     },
     "fr_fr.json": {
-      "sha1": "557ee1b7e5e1b9fc6b91d10ba54b64c6b641b93f",
-      "size": 619568
+      "sha1": "3194fa99d290d8df04796be544e938e81ae017f2",
+      "size": 619418
     },
     "it_it.json": {
       "sha1": "dc571e7d38d754c51ef70c58e6f4354504f1afba",
@@ -55,20 +55,20 @@
       "size": 588262
     },
     "pt_br.json": {
-      "sha1": "150b5bb96e81dfb8fac4dc22b28c7d5d1493a724",
-      "size": 594120
+      "sha1": "2fc38389ff5f66afa532a5ad14124a5d871c990c",
+      "size": 594112
     },
     "ru_ru.json": {
-      "sha1": "7d707e730ceb37687a682b5b5691fb82ef0c69a7",
-      "size": 763214
+      "sha1": "5cdd2a7d6d5c2c5753065f56246024e706b5d8ca",
+      "size": 763219
     },
     "th_th.json": {
       "sha1": "bd82c12fcada733be2d682a4dd6e2bbbea54ed71",
       "size": 886256
     },
     "uk_ua.json": {
-      "sha1": "cbcdcbd6b0428ec8744c9b92bacd756663d0a1d7",
-      "size": 762837
+      "sha1": "f891712194ac7a173596641a6faa3a8bbe06feef",
+      "size": 762877
     }
   }
 }
